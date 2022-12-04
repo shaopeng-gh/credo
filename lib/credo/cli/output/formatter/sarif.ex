@@ -66,7 +66,8 @@ defmodule Credo.CLI.Output.Formatter.SARIF do
       %{
         "id" => Credo.Code.Name.full(issue.check),
         "fullDescription" => %{
-          "text" => issue.check.explanation
+          "text" => issue.check.explanation |> String.replace("`", "\""),
+          "markdown" => issue.check.explanation
         },
         "properties" => %{
           "tags" => [
@@ -80,7 +81,8 @@ defmodule Credo.CLI.Output.Formatter.SARIF do
         "level" => sarif_level,
         "rank" => priority_to_sarif_rank(issue.priority),
         "message" => %{
-          "text" => issue.message
+          "text" => issue.message |> String.replace("`", "\""),
+          "markdown" => issue.message
         },
         "locations" => [
           %{
