@@ -110,10 +110,9 @@ defmodule Credo.CLI.Output.Formatter.SARIF do
       }
     }
 
-    remove_warning_level(
-      remove_nil_endcolumn(rule_and_issue, !column_end),
-      sarif_level == :warning
-    )
+    rule_and_issue
+    |> remove_nil_endcolumn(!column_end)
+    |> remove_warning_level(sarif_level == :warning)
   end
 
   defp remove_nil_endcolumn(sarif, false), do: sarif
